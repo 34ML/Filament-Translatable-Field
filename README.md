@@ -48,7 +48,15 @@ function(){
 }
 ]);
 ```
-
+## Relationship Manager
+For some reason relationship manager throws an error from the spatie translatable trait 
+you need to add this code to your relationship manager
+```php
+    public static function getRecordTitle(?Model $record): ?string
+    {
+        return $record->getTranslation('your_title_column', config('filament-translatable-field.locales')[0]);
+    }
+```
 ## Credits
 
 - [Mostafa Hassan](https://github.com/MostafaHassan1)
