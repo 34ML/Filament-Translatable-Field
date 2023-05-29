@@ -2,11 +2,8 @@
 
 namespace _34ML\FilamentTranslatableField;
 
-use Filament\Forms\Components\Field;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Spatie\Translatable\HasTranslations;
 
 class FilamentTranslatableFieldServiceProvider extends PackageServiceProvider
 {

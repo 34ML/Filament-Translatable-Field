@@ -2,9 +2,9 @@
 
 namespace _34ML\FilamentTranslatableField\Tests;
 
+use _34ML\FilamentTranslatableField\FilamentTranslatableFieldServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use _34ML\FilamentTranslatableField\FilamentTranslatableFieldServiceProvider;
 
 class TestCase extends Orchestra
 {
