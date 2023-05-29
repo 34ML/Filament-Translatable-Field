@@ -1,24 +1,26 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "34ml/filament-translatable-field",
+    "description": "A laravel filament field that handels translation ",
     "keywords": [
-        ":vendor_name",
+        "34ML",
         "laravel",
-        ":package_slug"
+        "filament-translatable-field"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/34ml/filament-translatable-field",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Mostafa Hassan",
+            "email": "mostafa@34ml.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
+        "filament/filament": "^2.0",
+        "illuminate/contracts": "*",
         "spatie/laravel-package-tools": "^1.14.0",
-        "illuminate/contracts": "^10.0"
+        "spatie/laravel-translatable": "*"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -35,13 +37,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "_34ML\\FilamentTranslatableField\\": "src/",
+            "_34ML\\FilamentTranslatableField\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "_34ML\\FilamentTranslatableField\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -61,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "_34ML\\FilamentTranslatableField\\FilamentTranslatableFieldServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FilamentTranslatableField": "_34ML\\FilamentTranslatableField\\Facades\\FilamentTranslatableField"
             }
         }
     },
