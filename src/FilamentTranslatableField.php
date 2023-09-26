@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class FilamentTranslatableField
 {
-    public static function make(string $fieldName, string $fieldClass, ?string $fieldDisplayName = null, $callbacks = null): array
+    public static function make(string $fieldName, string $fieldClass, string $fieldDisplayName = null, $callbacks = null): array
     {
         $locales = self::getLocales();
         self::checkIfValidFieldClass($fieldClass);
@@ -15,7 +15,7 @@ class FilamentTranslatableField
         foreach ($locales as $locale) {
             $field = $fieldClass::make("$fieldName.$locale")
                 ->statePath("$fieldName.$locale")
-                ->hidden(fn (\Closure $get) => !is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale);
+                ->hidden(fn (\Closure $get) => ! is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale);
             self::setFieldLabel($fieldDisplayName, $fieldName, $field, $locale);
             self::processCallabacks($callbacks, $field);
             $fields[] = $field;

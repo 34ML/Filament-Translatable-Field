@@ -2,9 +2,7 @@
 
 namespace _34ML\FilamentTranslatableField\Forms\Components;
 
-use Closure;
 use Filament\Forms\Components\Field;
-use Illuminate\Support\Facades\Log;
 
 class LanguageSelector extends Field
 {
@@ -12,8 +10,8 @@ class LanguageSelector extends Field
 
     public static function make($name = ''): static
     {
-        return parent::make(config('filament-translatable-field.select_translation_field_name','select_language'))
-            ->formatStateUsing(fn($state) => is_null($state) ? array_keys(config('filament-translatable-field.locales'))[0] ?? 'en' : $state);
+        return parent::make(config('filament-translatable-field.select_translation_field_name', 'select_language'))
+            ->formatStateUsing(fn ($state) => is_null($state) ? array_keys(config('filament-translatable-field.locales'))[0] ?? 'en' : $state);
     }
 
     public function getAvailableLanguages()
