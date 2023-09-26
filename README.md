@@ -18,9 +18,12 @@ This is the contents of the published config file which the fields are created f
 
 ```php
 return [
-    'locales' => ['en','ar'],
+    'locales' => [
+        'en' => 'English',
+        'ar' => 'Arabic',
+    ],
+    'select_translation_field_name' => 'select_language',
 ];
-
 ```
 
 ## Usage
