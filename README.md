@@ -18,12 +18,16 @@ This is the contents of the published config file which the fields are created f
 
 ```php
 return [
-    'locales' => ['en','ar'],
+    'locales' => [
+        'en' => 'English',
+        'ar' => 'Arabic',
+    ],
+    'select_translation_field_name' => 'select_language',
 ];
-
 ```
 
 ## Usage
+### Translatable Field
 Just add the field in your resource, view, create,or edit pages inside the form function
 ```php
  ..._34ML\FilamentTranslatableField::make(
@@ -47,6 +51,19 @@ function(){
     return $this->numeric();
 }
 ]);
+```
+
+### Language Selector
+If you want to add a language selector that shows only the select language's fields instead of showing all fields 
+you can simply add this field n your resource, view, create,or edit pages inside the form function
+
+```php
+use _34ML\FilamentTranslatableField\Forms\Components\LanguageSelector;
+
+return $form
+           ->schema([
+               LanguageSelector::make(),
+                ]);
 ```
 ## Relationship Manager
 For some reason relationship manager throws an error from the spatie translatable trait 

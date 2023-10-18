@@ -7,13 +7,15 @@ use Illuminate\Support\Str;
 
 class FilamentTranslatableField
 {
-    public static function make(string $fieldName, string $fieldClass, ?string $fieldDisplayName = null, $callbacks = null): array
+    public static function make(string $fieldName, string $fieldClass, string $fieldDisplayName = null, $callbacks = null): array
     {
         $locales = self::getLocales();
         self::checkIfValidFieldClass($fieldClass);
         $fields = [];
         foreach ($locales as $locale) {
-            $field = $fieldClass::make("$fieldName.$locale")->statePath("$fieldName.$locale");
+            $field = $fieldClass::make("$fieldName.$locale")
+                ->statePath("$fieldName.$locale")
+                ->hidden(fn (\Closure $get) => ! is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale);
             self::setFieldLabel($fieldDisplayName, $fieldName, $field, $locale);
             self::processCallabacks($callbacks, $field);
             $fields[] = $field;
@@ -24,7 +26,7 @@ class FilamentTranslatableField
 
     private static function getLocales()
     {
-        $locales = config('filament-translatable-field.locales');
+        $locales = array_keys(config('filament-translatable-field.locales'));
 
         if (count($locales) == 0) {
             throw new \Exception('Locales cannot be empty, please assign more locales via the filament translatable field config file');
@@ -68,5 +70,10 @@ class FilamentTranslatableField
                 $field = $callbacks->call($field);
             }
         }
+    }
+
+    private static function getSelectLanguageFieldName()
+    {
+        return config('filament-translatable-field.select_translation_field_name');
     }
 }
