@@ -9,7 +9,9 @@ use Illuminate\Contracts\Support\Htmlable;
 class LanguageSelector extends Field
 {
     protected string $view = 'filament-translatable-field::forms.components.language-selector';
-    protected string | Htmlable | Closure | null $label = '';
+
+    protected string|Htmlable|Closure|null $label = '';
+
     public static function make($name = ''): static
     {
         return parent::make(config('filament-translatable-field.select_translation_field_name', 'select_language'))

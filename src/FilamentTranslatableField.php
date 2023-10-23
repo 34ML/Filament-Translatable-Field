@@ -3,9 +3,8 @@
 namespace _34ML\FilamentTranslatableField;
 
 use Filament\Forms\Components\Field;
-use Illuminate\Support\Str;
 use Filament\Forms\Get;
-
+use Illuminate\Support\Str;
 
 class FilamentTranslatableField
 {
