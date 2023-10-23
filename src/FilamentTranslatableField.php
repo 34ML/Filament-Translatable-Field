@@ -4,6 +4,8 @@ namespace _34ML\FilamentTranslatableField;
 
 use Filament\Forms\Components\Field;
 use Illuminate\Support\Str;
+use Filament\Forms\Get;
+
 
 class FilamentTranslatableField
 {
@@ -15,7 +17,7 @@ class FilamentTranslatableField
         foreach ($locales as $locale) {
             $field = $fieldClass::make("$fieldName.$locale")
                 ->statePath("$fieldName.$locale")
-                ->hidden(fn (\Closure $get) => ! is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale);
+                ->hidden(fn (Get $get) => ! is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale);
             self::setFieldLabel($fieldDisplayName, $fieldName, $field, $locale);
             self::processCallabacks($callbacks, $field);
             $fields[] = $field;
