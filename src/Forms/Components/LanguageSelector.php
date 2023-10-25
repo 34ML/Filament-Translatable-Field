@@ -17,7 +17,8 @@ class LanguageSelector extends Field
         return parent::make(config('filament-translatable-field.select_translation_field_name', 'select_language'))
             ->formatStateUsing(fn ($state) => is_null($state) ? array_keys(config('filament-translatable-field.locales'))[0] ?? 'en' : $state)
             ->live()
-            ->dehydrated(false);
+            ->dehydrated(false)
+            ->columnSpan('full');
     }
 
     public function getAvailableLanguages()
