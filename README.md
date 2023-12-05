@@ -1,5 +1,15 @@
-# A laravel filament field that handles translations
+# A filament field that handles translations
 
+This package enables you to implement the following:
+
+![translatableField](resources/images/FullComponent.png)
+
+1. Render a language selector to change the localized filed
+2. You can save your localized fields data in one click
+   ![]
+3. You can use it in your relationship manager to
+
+This package depends on [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable), Please check it first to set up your translation logic in your project.
 ## Installation
 
 You can install the package via composer:
@@ -55,7 +65,7 @@ function(){
 
 ### Language Selector
 If you want to add a language selector that shows only the select language's fields instead of showing all fields 
-you can simply add this field n your resource, view, create,or edit pages inside the form function
+you can simply add this field in your resource, view, create,or edit pages inside the form function
 
 ```php
 use _34ML\FilamentTranslatableField\Forms\Components\LanguageSelector;
@@ -66,7 +76,6 @@ return $form
                 ]);
 ```
 ## Relationship Manager
-For some reason relationship manager throws an error from the spatie translatable trait 
 you need to add this code to your relationship manager
 ```php
     public static function getRecordTitle(?Model $record): ?string
@@ -77,6 +86,10 @@ you need to add this code to your relationship manager
 ## Credits
 
 - [Mostafa Hassan](https://github.com/MostafaHassan1)
-- [All Contributors](../../contributors)
+- [Reham Mourad](https://github.com/RehamMourad)
+- [Ahmed Essam](https://github.com/aessam13)
 
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
