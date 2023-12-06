@@ -4,7 +4,7 @@
 
 This package enables you to implement the following:
 
-1. Render a language selector to change the localized filed
+1. Render a language selector to change the localized field
 2. You can save your localized fields data in one click
 3. You can use it in your relationship manager to show the localized fields
 
@@ -26,8 +26,7 @@ You can publish the config file with:
 php artisan vendor:publish --tag="filament-translatable-field-config"
 ```
 
-This is the contents of the published config file which the fields are created for each language listed here:
-
+This is the content of the published config file where fields are created for each language listed here
 ```php
 return [
     'locales' => [
@@ -38,35 +37,41 @@ return [
 ];
 ```
 
-## Usage
-### Translatable Field
-Just add the field in your resource, view, create,or edit pages inside the form function
+## Translatable Field Usage
+### Basic Usage
+
+* Just add the field in your resource, view, create,or edit pages inside the form function
 ```php
  ..._34ML\FilamentTranslatableField::make(
- 'your_translatable_field_name',
- \Filament\Forms\Components\TextInput::class, // The field type class 
- 'your_field_displayed_name', // Optional
-// add your filament field functions as a callback 
-// you can add it as one function
-callbacks: function (){
-    $this->required();
-    $this->numeric();
-    return $this; // You have to return the field or the callbacks won't work
-}
+     'your_translatable_field_name',
+     \Filament\Forms\Components\TextInput::class, // The field type class 
+)
+```
+* If you want to customize the label of the field
+```php
+ ..._34ML\FilamentTranslatableField::make(
+     'your_translatable_field_name',
+     \Filament\Forms\Components\TextInput::class, // The field type class
+     'your_field_displayed_name', // Optional
+)
+```
 
-// it also works as an array of different functions
-callbacks: [
-function(){
-    return $this->required();
-},
-function(){
-    return $this->numeric();
-}
-]);
+* If you want to add filament field functions
+```php
+  ..._34ML\FilamentTranslatableField::make(
+     'your_translatable_field_name',
+     \Filament\Forms\Components\TextInput::class, // The field type class 
+    // add your filament field functions as a callback, you can add it as one function
+    callbacks: function (){
+        $this->required();
+        $this->numeric();
+        return $this; // You have to return the field or the callbacks won't work
+    }
+)
 ```
 
 ### Language Selector
-If you want to add a language selector that shows only the select language's fields instead of showing all fields 
+If you want to add a language selector that shows only the selected language's fields instead of showing all fields 
 you can simply add this field in your resource, view, create,or edit pages inside the form function
 
 ```php
