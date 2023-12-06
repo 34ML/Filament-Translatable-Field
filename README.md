@@ -1,15 +1,17 @@
 # A filament field that handles translations
+![translatableFieldHeader](resources/images/Filament-Translatable-Field.jpg)
+
 
 This package enables you to implement the following:
 
-![translatableField](resources/images/FullComponent.png)
-
 1. Render a language selector to change the localized filed
 2. You can save your localized fields data in one click
-   ![]
-3. You can use it in your relationship manager to
+3. You can use it in your relationship manager to show the localized fields
 
-This package depends on [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable), Please check it first to set up your translation logic in your project.
+![translatableField](resources/images/FullComponent.png)
+
+
+***This package depends on [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable), Please check it first to set up your translation logic in your project.***
 ## Installation
 
 You can install the package via composer:
