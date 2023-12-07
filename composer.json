@@ -1,6 +1,6 @@
 {
     "name": "34ml/filament-translatable-field",
-    "description": "A laravel filament field that handels translation ",
+    "description": "A laravel filament field that handel translation ",
     "keywords": [
         "34ML",
         "laravel",
@@ -19,7 +19,7 @@
             "email": "reham@34ml.com",
             "role": "Developer"
         },
-         {
+        {
             "name": "Ahmed Essam",
             "email": "essam@34ml.com",
             "role": "Backend Team Lead"
