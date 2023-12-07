@@ -13,6 +13,16 @@
             "name": "Mostafa Hassan",
             "email": "mostafa@34ml.com",
             "role": "Developer"
+        },
+        {
+            "name": "Reham Mourad",
+            "email": "reham@34ml.com",
+            "role": "Developer"
+        },
+         {
+            "name": "Ahmed Essam",
+            "email": "essam@34ml.com",
+            "role": "Team Lead"
         }
     ],
     "require": {
