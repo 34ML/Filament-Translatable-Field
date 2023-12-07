@@ -92,7 +92,6 @@ you need to add this code to your relationship manager
 ```
 ## Credits
 
-- [34ML](https://github.com/34ML)
 - [Mostafa Hassan](https://github.com/MostafaHassan1)
 - [Reham Mourad](https://github.com/RehamMourad)
 - [Ahmed Essam](https://github.com/aessam13)
