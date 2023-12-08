@@ -1,5 +1,5 @@
 # A filament field that handles translations
-![translatableFieldHeader](resources/images/Filament-Translatable-Field.jpg)
+![translatableFieldHeader](https://raw.githubusercontent.com/34ML/Filament-Translatable-Field/main/resources/images/Filament-Translatable-Field.jpg)
 
 
 This package enables you to implement the following:
@@ -8,7 +8,7 @@ This package enables you to implement the following:
 2. You can save your localized fields data in one click
 3. You can use it in your relationship manager to show the localized fields
 
-![translatableField](resources/images/FullComponent.png)
+![translatableField](https://raw.githubusercontent.com/34ML/Filament-Translatable-Field/main/resources/images/FullComponent.png)
 
 
 ***This package depends on [spatie/laravel-translatable](https://github.com/spatie/laravel-translatable), Please check it first to set up your translation logic in your project.***
