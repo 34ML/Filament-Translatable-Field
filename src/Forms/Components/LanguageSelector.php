@@ -16,10 +16,11 @@ class LanguageSelector extends Field
     public static function make($name = ''): static
     {
         return parent::make(config('filament-translatable-field.select_translation_field_name', 'select_language'))
-            ->formatStateUsing(fn ($state) => is_null($state) ? array_keys(config('filament-translatable-field.locales'))[0] ?? 'en' : $state)
+            ->formatStateUsing(fn ($state) => is_null($state) ? self::getAvailableLanguages()[0] ?? 'en' : $state)
             ->live()
-            ->default(array_keys(config('filament-translatable-field.locales'))[0] ?? 'en')
+            ->default(self::getAvailableLanguages()[0] ?? 'en')
             ->dehydrated(false)
+            ->hidden(self::thereIsOnlyOneLanguage())
             ->beforeStateDehydrated(function($state,Component $component) {
                 $components = $component->getContainer()->getComponents(true);
                 foreach ($components as $component) {
@@ -30,8 +31,13 @@ class LanguageSelector extends Field
             ->columnSpan('full');
     }
 
-    public function getAvailableLanguages()
+    public static function getAvailableLanguages()
     {
         return config('filament-translatable-field.locales');
+    }
+
+    public static function thereIsOnlyOneLanguage()
+    {
+        return count(self::getAvailableLanguages()) <= 1;
     }
 }
