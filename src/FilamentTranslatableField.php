@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 
 class FilamentTranslatableField
 {
+    /**
+     * @throws \Exception
+     */
     public static function make(string $fieldName, string $fieldClass, string $fieldDisplayName = null, $callbacks = null): array
     {
         $locales = self::getLocales();
@@ -17,8 +20,8 @@ class FilamentTranslatableField
         foreach ($locales as $locale) {
             $field = $fieldClass::make("$fieldName.$locale")
                 ->statePath("$fieldName.$locale")
-                ->hidden(fn (Get $get) => ! is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale);
-            self::setFieldLabel($fieldDisplayName, $fieldName, $field, $locale);
+                ->hidden(fn (Get $get) => ! is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale)
+                ->label(fn(Get $get) => self::getFieldLabel($get(self::getSelectLanguageFieldName()),$fieldName,$fieldDisplayName,$locale));
             self::processCallabacks($callbacks, $field);
             $fields[] = $field;
         }
@@ -26,7 +29,7 @@ class FilamentTranslatableField
         return $fields;
     }
 
-    private static function getLocales()
+    private static function getLocales(): array
     {
         $locales = array_keys(config('filament-translatable-field.locales'));
 
@@ -39,26 +42,20 @@ class FilamentTranslatableField
 
     private static function checkIfValidFieldClass(string $fieldClass)
     {
-        if (is_subclass_of($fieldClass, Field::class)) {
-            return;
+        if (!is_subclass_of($fieldClass, Field::class)) {
+            throw new \Exception(`$fieldClass must extend `.Field::class);
         }
-
-        throw new \Exception(`$fieldClass must extend `.Field::class);
     }
 
-    public static function setFieldLabel(?string $fieldDisplayName, $fieldName, &$field, mixed $locale): void
+    public static function getFieldLabel(?string $selectLanguageFieldValue,string $fieldName, ?string $fieldDisplayName, string $locale): string
     {
-        if ($fieldDisplayName != null) {
-            $field->label(Str::title("$fieldDisplayName $locale"));
-        } else {
-            $field->label(Str::title("$fieldName $locale"));
-        }
+        if(! is_null($selectLanguageFieldValue))
+            return $fieldDisplayName ?? $fieldName;
+
+        return $fieldDisplayName ? "$fieldDisplayName $locale" : "$fieldName $locale";
     }
 
-    /**
-     * @return mixed
-     */
-    public static function processCallabacks(mixed $callbacks, &$field)
+    public static function processCallabacks(mixed $callbacks, &$field): void
     {
         if ($callbacks != null) {
             if (is_array($callbacks)) {
