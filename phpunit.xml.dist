@@ -16,7 +16,7 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="34ML Test Suite">
+        <testsuite name="34ml Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -30,6 +30,9 @@
             <clover outputFile="build/logs/clover.xml"/>
         </report>
     </coverage>
+    <php>
+        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+    </php>
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>

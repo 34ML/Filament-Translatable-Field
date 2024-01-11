@@ -3,7 +3,12 @@
 namespace _34ML\FilamentTranslatableField\Tests;
 
 use _34ML\FilamentTranslatableField\FilamentTranslatableFieldServiceProvider;
+use Filament\FilamentServiceProvider;
+use Filament\Forms\FormsServiceProvider;
+use Filament\Support\SupportServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\View;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -21,6 +26,10 @@ class TestCase extends Orchestra
     {
         return [
             FilamentTranslatableFieldServiceProvider::class,
+            LivewireServiceProvider::class,
+            FilamentServiceProvider::class,
+            FormsServiceProvider::class,
+            SupportServiceProvider::class,
         ];
     }
 
@@ -28,9 +37,8 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_filament-translatable-field_table.php.stub';
-        $migration->up();
-        */
+        View::addLocation(__DIR__ . '/Fixtures/resources/views');
+
+        (include __DIR__ . '/Fixtures/Migrations/create_post_table.php')->up();
     }
 }

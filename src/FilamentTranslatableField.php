@@ -31,7 +31,7 @@ class FilamentTranslatableField
         $locales = array_keys(config('filament-translatable-field.locales'));
 
         if (count($locales) == 0) {
-            throw new \Exception('Locales cannot be empty, please assign more locales via the filament translatable field config file');
+            throw new \Exception('Locales cannot be empty, please assign more locales via the filament translatable field config file', 500);
         }
 
         return $locales;

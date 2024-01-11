@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Facade;
  */
 class FilamentTranslatableField extends Facade
 {
+    /*
+     * @codeCoverageIgnore
+     */
     protected static function getFacadeAccessor()
     {
         return \_34ML\FilamentTranslatableField\FilamentTranslatableField::class;
