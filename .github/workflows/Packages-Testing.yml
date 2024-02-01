@@ -33,17 +33,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
     steps:
-      - name: Import Global Secrets
-        uses: hashicorp/vault-action@bb61006b6d1c5679dffb813f9f5c2466a7ddfdb0
-        with:
-          url: https://vault.34ml.com
-          token: ${{ secrets.VAULT_TOKEN }}
-          secrets: |
-              34ML/data/Laravel $.$ | VAULT_SECRETS;
-      - name: Checkout branch
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  
       - name: Cache PHP Vendor
         uses: actions/cache@v3
         with:
@@ -54,10 +43,7 @@ jobs:
         with:
           path: node_modules
           key: ${{ github.ref_name }}
-      - run: mkdir -p $HOME/.composer
-      - run: echo "$COMPOSER_AUTH" >> $HOME/.composer/auth.json
       - run: composer install --prefer-dist
-      - run: php artisan key:generate
       - run: echo "laravel_version=$(php artisan --version | perl -pe 'if(($_)=/([0-9]+)/){$_.="\n"}')" >> $GITHUB_ENV
       - run: if [[ $laravel_version -ge 8 ]] && [[ ! -z $(composer show | grep brianium/paratest) ]]; then XDEBUG_MODE=coverage php artisan test --parallel --coverage-html coverage --coverage-text; elif [ $laravel_version -ge 7 ]; then XDEBUG_MODE=coverage php artisan test --coverage-html coverage --coverage-text; else XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text; fi
         shell: bash
