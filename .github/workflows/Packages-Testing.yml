@@ -7,12 +7,6 @@ on:
     branches:    
       - 'master'
 
-  workflow_call:
-    inputs:
-      docker-image:
-        required: true
-        type: string
-
 jobs:
   CodeStyle:
     runs-on: ubuntu-latest
@@ -28,7 +22,7 @@ jobs:
   UnitTesting:
     runs-on: ubuntu-latest
     container:
-      image: ${{ inputs.docker-image }}
+      image: ghcr.io/34ml/docker-laravel:php-8.2-composer-2.0-node-18.0
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.github_token }}
