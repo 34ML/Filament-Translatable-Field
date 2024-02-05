@@ -9,7 +9,7 @@ on:
 
 jobs:
   Testing:
-    uses: 34ML/Actions-Config/.github/workflows/Laravel-Packages-Testing.yml@master
+    uses: 34ML/Actions-Config/.github/workflows/Laravel-Testing.yml@master
     with:
       docker-image: ghcr.io/34ml/docker-laravel:php-8.2-composer-2.0-node-19.9.0
     secrets: inherit # pass all secrets
