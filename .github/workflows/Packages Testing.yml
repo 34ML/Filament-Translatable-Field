@@ -1,4 +1,4 @@
-name: Testing
+name: Packages Testing
 
 on: 
   workflow_dispatch:
@@ -48,7 +48,6 @@ jobs:
           key: ${{ github.ref_name }}
       - run: composer config discard-changes 1
       - run: composer install --prefer-dist
-      - run: php artisan key:generate
       - run: echo "laravel_version=$(php artisan --version | perl -pe 'if(($_)=/([0-9]+)/){$_.="\n"}')" >> $GITHUB_ENV
       - run: |
           if [[ $laravel_version -ge 8 ]] && [[ ! -z $(composer show | grep brianium/paratest) ]]; then
