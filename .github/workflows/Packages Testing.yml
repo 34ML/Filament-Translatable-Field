@@ -50,8 +50,6 @@ jobs:
         run: |
           composer config discard-changes 1
           composer install --prefer-dist
-      - name: Set up Laravel
-        run: php artisan key:generate
       - name: Set up environment variables
         run: echo "laravel_version=$(php artisan --version | perl -pe 'if(($_)=/([0-9]+)/){$_.="\n"}')" >> $GITHUB_ENV
       - name: Run Tests
