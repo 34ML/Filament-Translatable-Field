@@ -1,6 +1,6 @@
 name: Packages Testing
 
-on: 
+on:
   workflow_dispatch:
   
   pull_request:
@@ -46,19 +46,29 @@ jobs:
         with:
           path: node_modules
           key: ${{ github.ref_name }}
-      - run: composer config discard-changes 1
-      - run: composer install --prefer-dist
-      - run: echo "laravel_version=$(php artisan --version | perl -pe 'if(($_)=/([0-9]+)/){$_.="\n"}')" >> $GITHUB_ENV
-      - run: |
-          if [[ $laravel_version -ge 8 ]] && [[ ! -z $(composer show | grep brianium/paratest) ]]; then
-            XDEBUG_MODE=coverage php artisan test --parallel --coverage-html coverage --coverage-text
-          elif [ $laravel_version -ge 7 ]; then
-            XDEBUG_MODE=coverage php artisan test --coverage-html coverage --coverage-text
+      - name: Set up PHP and Composer
+        run: |
+          composer config discard-changes 1
+          composer install --prefer-dist
+      - name: Set up Laravel
+        run: php artisan key:generate
+      - name: Set up environment variables
+        run: echo "laravel_version=$(php artisan --version | perl -pe 'if(($_)=/([0-9]+)/){$_.="\n"}')" >> $GITHUB_ENV
+      - name: Run Tests
+        run: |
+          if [[ $laravel_version =~ ^[0-9]+$ ]]; then
+            if [[ $laravel_version -ge 8 ]] && [[ ! -z $(composer show | grep brianium/paratest) ]]; then
+              XDEBUG_MODE=coverage php artisan test --parallel --coverage-html coverage --coverage-text
+            elif [[ $laravel_version -ge 7 ]]; then
+              XDEBUG_MODE=coverage php artisan test --coverage-html coverage --coverage-text
+            else
+              XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text
+            fi
           else
-            XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text
+            echo "Invalid Laravel version format: $laravel_version"
           fi
-        shell: bash
-      - uses: actions/upload-artifact@v3
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v3
         with:
           name: Test Coverage
           path: coverage/
