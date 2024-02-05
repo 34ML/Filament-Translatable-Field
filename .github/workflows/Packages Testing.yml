@@ -1,4 +1,4 @@
-name: Packages Testing
+name: Testing
 
 on: 
   workflow_dispatch:
@@ -7,9 +7,59 @@ on:
     branches:    
       - 'main'
 
+  workflow_call:
+    inputs:
+      docker-image:
+        required: true
+        type: string
+
 jobs:
-  Testing:
-    uses: 34ML/Actions-Config/.github/workflows/Laravel-Testing.yml@master
-    with:
-      docker-image: ghcr.io/34ml/docker-laravel:php-8.2-composer-2.0-node-19.9.0
-    secrets: inherit # pass all secrets
+  CodeStyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  
+      - name: PHP-CS-Fixer
+        uses: 34ML/github-action-php-cs-fixer@main
+
+  UnitTesting:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/34ml/docker-laravel:php-8.2-composer-2.0-node-19.9.0
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  
+      - name: Cache PHP Vendor
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ github.ref_name }}
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ github.ref_name }}
+      - run: composer config discard-changes 1
+      - run: composer install --prefer-dist
+      - run: php artisan key:generate
+      - run: echo "laravel_version=$(php artisan --version | perl -pe 'if(($_)=/([0-9]+)/){$_.="\n"}')" >> $GITHUB_ENV
+      - run: |
+          if [[ $laravel_version -ge 8 ]] && [[ ! -z $(composer show | grep brianium/paratest) ]]; then
+            XDEBUG_MODE=coverage php artisan test --parallel --coverage-html coverage --coverage-text
+          elif [ $laravel_version -ge 7 ]; then
+            XDEBUG_MODE=coverage php artisan test --coverage-html coverage --coverage-text
+          else
+            XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text
+          fi
+        shell: bash
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Test Coverage
+          path: coverage/
