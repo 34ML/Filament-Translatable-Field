@@ -13,13 +13,13 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    protected function setUp(): void
+    public function getEnvironmentSetUp($app)
     {
-        parent::setUp();
+        config()->set('database.default', 'testing');
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => '_34ML\\FilamentTranslatableField\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        View::addLocation(__DIR__ . '/Fixtures/resources/views');
+
+        (include __DIR__ . '/Fixtures/Migrations/create_post_table.php')->up();
     }
 
     protected function getPackageProviders($app)
@@ -33,12 +33,12 @@ class TestCase extends Orchestra
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    protected function setUp(): void
     {
-        config()->set('database.default', 'testing');
+        parent::setUp();
 
-        View::addLocation(__DIR__ . '/Fixtures/resources/views');
-
-        (include __DIR__ . '/Fixtures/Migrations/create_post_table.php')->up();
+        Factory::guessFactoryNamesUsing(
+            fn (string $modelName) => '_34ML\\FilamentTranslatableField\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+        );
     }
 }
