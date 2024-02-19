@@ -2,10 +2,10 @@ name: Packages Testing
 
 on:
   workflow_dispatch:
-  
+
   pull_request:
-    branches:    
-      - 'main'
+    branches:
+      - 'master'
 
   workflow_call:
     inputs:
@@ -20,7 +20,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  
+          fetch-depth: 0
       - name: PHP-CS-Fixer
         uses: 34ML/github-action-php-cs-fixer@main
 
@@ -48,7 +48,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  
+          fetch-depth: 0
       - name: Cache PHP Vendor
         uses: actions/cache@v3
         with:
@@ -60,7 +60,7 @@ jobs:
           path: node_modules
           key: ${{ github.ref_name }}
       - run: mkdir -p $HOME/.composer
-      - run: echo "$COMPOSER_AUTH" >> $HOME/.composer/auth.json    
+      - run: echo "$COMPOSER_AUTH" >> $HOME/.composer/auth.json
       - name: Set up PHP and Composer
         run: |
           composer config discard-changes 1
@@ -78,7 +78,7 @@ jobs:
               XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text
             fi
           else
-            echo "Invalid Laravel version format: $laravel_version"
+              XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text
           fi
       - name: Upload Test Coverage
         uses: actions/upload-artifact@v3
