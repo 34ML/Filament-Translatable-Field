@@ -75,10 +75,10 @@ jobs:
             elif [[ $laravel_version -ge 7 ]]; then
               XDEBUG_MODE=coverage php artisan test --coverage-html coverage --coverage-text
             else
-              XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text
+              XDEBUG_MODE=coverage ./vendor/bin/pest --coverage-html coverage --coverage-text
             fi
           else
-              XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage --coverage-text
+              XDEBUG_MODE=coverage ./vendor/bin/pest --coverage-html coverage --coverage-text
           fi
       - name: Upload Test Coverage
         uses: actions/upload-artifact@v3
