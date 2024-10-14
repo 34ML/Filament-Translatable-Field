@@ -43,7 +43,7 @@ jobs:
               34ML/data/Laravel $.$ | VAULT_SECRETS;
       - run: echo "$VAULT_SECRETS" > vault.json
       - name: JSON to environment variables
-        uses: alhassanaraouf/json-to-variables@main
+        uses: 34ml/json-to-variables@main
         with:
           filename: 'vault.json'
           masked: true
