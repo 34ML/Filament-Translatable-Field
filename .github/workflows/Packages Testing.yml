@@ -83,7 +83,7 @@ jobs:
               XDEBUG_MODE=coverage ./vendor/bin/pest --coverage-html coverage --coverage-text
           fi
       - name: Upload Test Coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Test Coverage
           path: coverage/
