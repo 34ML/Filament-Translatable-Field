@@ -58,7 +58,31 @@
             margin: 0px 0.5rem;
             padding: 0.5rem 0px;
             border-radius: 0.5rem;
+            border: 1px solid transparent;
         }
+
+    /*   Dark Mode */
+        .dark .tabs-header
+        {
+           background-color : rgba(var(--gray-200), 1);
+        }
+
+        .dark .selected-tab
+        {
+            background-color: white;
+            border: 1px solid rgba(var(--primary-400), var(--tw-text-opacity));
+        }
+        .dark .tabs-header .selected-tab>div
+        {
+            color:  rgba(var(--primary-400) , var(--tw-text-opacity));
+        }
+
+        .check-icon {
+            color:  rgba(var(--primary-400) , var(--tw-text-opacity));
+            width: 18px;  /* Adjust size */
+            height: 18px;
+        }
+
     </style>
     <div x-data="{ state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$getStatePath()}')") }} }">
         <div class="tabs-wrapper">
@@ -69,7 +93,11 @@
                         <div>
                             <span>
                                 @if ($key == $getState())
-                                    <img src="{{ asset('assets/icons/Checked.png') }}" class="tab-icon" alt="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon" width="24" height="24">
+  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor"></circle>
+  <path d="M16 8L10 14L8 12" />
+</svg>
+
                                 @else
                                     <img src="https://file.rendit.io/n/N28BuU8d9SOttoDgtF2d.svg" class="tab-icon" />
                                 @endif
