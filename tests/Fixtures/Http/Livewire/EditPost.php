@@ -31,6 +31,13 @@ class EditPost extends Component implements HasForms
         return view('livewire.edit-post');
     }
 
+    public function submitForm()
+    {
+        $this->post->update(
+            $this->form->getState(),
+        );
+    }
+
     protected function getFormModel(): Model|string|null
     {
         return $this->post;
@@ -50,12 +57,5 @@ class EditPost extends Component implements HasForms
     protected function getFormStatePath(): ?string
     {
         return 'data';
-    }
-
-    public function submitForm()
-    {
-        $this->post->update(
-            $this->form->getState(),
-        );
     }
 }
