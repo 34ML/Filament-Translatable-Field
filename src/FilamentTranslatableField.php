@@ -20,7 +20,9 @@ class FilamentTranslatableField
         foreach ($locales as $locale) {
             $field = $fieldClass::make("$fieldName.$locale")
                 ->statePath("$fieldName.$locale")
-                ->hidden(fn (Get $get) => ! is_null($get(self::getSelectLanguageFieldName())) && $get(self::getSelectLanguageFieldName()) != $locale)
+                ->visible(function (Get $get) use($locale) {
+                    return is_null($get(self::getSelectLanguageFieldName())) || $get(self::getSelectLanguageFieldName()) == $locale;
+                })
                 ->label(fn(Get $get) => self::getFieldLabel($get(self::getSelectLanguageFieldName()),$fieldName,$fieldDisplayName,$locale));
             self::processCallabacks($callbacks, $field);
             $fields[] = $field;
