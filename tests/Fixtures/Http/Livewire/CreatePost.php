@@ -7,8 +7,9 @@ use _34ML\FilamentTranslatableField\Tests\Fixtures\Models\Post;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\MessageBag;
 use Livewire\Component;
 
 class CreatePost extends Component implements HasForms
@@ -20,6 +21,12 @@ class CreatePost extends Component implements HasForms
     public function mount(): void
     {
         $this->form->fill();
+    }
+
+    public function getErrorBag()
+    {
+        $errorBag = parent::getErrorBag();
+        return $errorBag ?: new MessageBag();
     }
 
     public function render(): View
@@ -34,24 +41,17 @@ class CreatePost extends Component implements HasForms
         $this->form->model($post)->saveRelationships();
     }
 
-    protected function getFormSchema(): array
+    public function form(Schema $schema): Schema
     {
-        return [
-            ...FilamentTranslatableField::make(
-                'title',
-                TextInput::class,
-                'Product Title',
-            ),
-        ];
-    }
-
-    protected function getFormStatePath(): ?string
-    {
-        return 'data';
-    }
-
-    protected function getFormModel(): Model|string|null
-    {
-        return Post::class;
+        return $schema
+            ->components([
+                ...FilamentTranslatableField::make(
+                    'title',
+                    TextInput::class,
+                    'Product Title',
+                ),
+            ])
+            ->statePath('data')
+            ->model(Post::class);
     }
 }
