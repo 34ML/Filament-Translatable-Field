@@ -7,8 +7,9 @@ use _34ML\FilamentTranslatableField\Tests\Fixtures\Models\Post;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\MessageBag;
 use Livewire\Component;
 
 class EditPost extends Component implements HasForms
@@ -26,6 +27,12 @@ class EditPost extends Component implements HasForms
         ]);
     }
 
+    public function getErrorBag()
+    {
+        $errorBag = parent::getErrorBag();
+        return $errorBag ?: new MessageBag();
+    }
+
     public function render(): View
     {
         return view('livewire.edit-post');
@@ -38,24 +45,17 @@ class EditPost extends Component implements HasForms
         );
     }
 
-    protected function getFormModel(): Model|string|null
+    public function form(Schema $schema): Schema
     {
-        return $this->post;
-    }
-
-    protected function getFormSchema(): array
-    {
-        return [
-            ...FilamentTranslatableField::make(
-                'title',
-                TextInput::class,
-                'Product Title',
-            ),
-        ];
-    }
-
-    protected function getFormStatePath(): ?string
-    {
-        return 'data';
+        return $schema
+            ->components([
+                ...FilamentTranslatableField::make(
+                    'title',
+                    TextInput::class,
+                    'Product Title',
+                ),
+            ])
+            ->statePath('data')
+            ->model($this->post);
     }
 }

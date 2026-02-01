@@ -40,5 +40,7 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => '_34ML\\FilamentTranslatableField\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
+
+        View::share('errors', new \Illuminate\Support\ViewErrorBag());
     }
 }

@@ -3,7 +3,7 @@
 namespace _34ML\FilamentTranslatableField;
 
 use Filament\Forms\Components\Field;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
 
 class FilamentTranslatableField
 {
