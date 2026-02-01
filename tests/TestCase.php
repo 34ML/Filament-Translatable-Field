@@ -41,6 +41,6 @@ class TestCase extends Orchestra
             fn (string $modelName) => '_34ML\\FilamentTranslatableField\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
 
-        View::share('errors', new \Illuminate\Support\ViewErrorBag());
+        View::share('errors', new \Illuminate\Support\ViewErrorBag);
     }
 }
