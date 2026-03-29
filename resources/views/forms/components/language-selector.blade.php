@@ -61,25 +61,30 @@
             border: 1px solid transparent;
         }
 
-    /*   Dark Mode */
+        /*   Dark Mode */
         .dark .tabs-header
         {
-           background-color : rgba(var(--gray-200), 1);
+            background-color : rgba(255, 255, 255, 0.05);
+        }
+
+        .dark .tabs-header li>div
+        {
+            color: #a1a1aa;
         }
 
         .dark .selected-tab
         {
-            background-color: white;
-            border: 1px solid rgba(var(--primary-400), var(--tw-text-opacity));
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .dark .tabs-header .selected-tab>div
         {
-            color:  rgba(var(--primary-400) , var(--tw-text-opacity));
+            color: #ffffff;
         }
 
         .check-icon {
-            color:  rgba(var(--primary-400) , var(--tw-text-opacity));
-            width: 18px;  /* Adjust size */
+            width: 18px;
             height: 18px;
         }
 
@@ -93,7 +98,7 @@
                         <div>
                             <span>
                                 @if ($key == $getState())
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon" width="24" height="24">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon text-primary-500" width="24" height="24">
   <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor"></circle>
   <path d="M16 8L10 14L8 12" />
 </svg>
