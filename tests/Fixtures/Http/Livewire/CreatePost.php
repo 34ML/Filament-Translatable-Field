@@ -26,7 +26,8 @@ class CreatePost extends Component implements HasForms
     public function getErrorBag()
     {
         $errorBag = parent::getErrorBag();
-        return $errorBag ?: new MessageBag();
+
+        return $errorBag ?: new MessageBag;
     }
 
     public function render(): View

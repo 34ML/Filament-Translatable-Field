@@ -2,8 +2,8 @@
 
 namespace _34ML\FilamentTranslatableField\Forms\Components;
 
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Field;
+use Filament\Schemas\Components\Component;
 use Illuminate\Contracts\Support\Htmlable;
 
 class LanguageSelector extends Field
